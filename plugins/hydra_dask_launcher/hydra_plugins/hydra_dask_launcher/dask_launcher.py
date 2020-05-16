@@ -26,7 +26,7 @@ clusters = {
     "pbs": dask_jobqueue.PBSCluster,
     "sge": dask_jobqueue.SGECluster,
     "lsf": dask_jobqueue.LSFCluster,
-    "slurm": dask_jobqueue.SlurmCluster
+    "slurm": dask_jobqueue.SlURMCluster
 }
 
 
@@ -42,6 +42,7 @@ class DaskLauncher(Launcher):
         self.task_function: Optional[TaskFunction] = None
 
         self.joblib = kwargs
+        print(self.joblib)
 
     def setup(
         self,

@@ -42,7 +42,7 @@ class JoblibConf:
     mmap_mode: str = "r"
 
 @dataclass
-class DaskConf:
+class JobqueueConf:
     #Scheduler type
     scheduler: str = ""
 
@@ -123,12 +123,16 @@ class DaskConf:
     #List of other scheduler options. Each option will be prepended with the correct scheduler prefix.
     #job_extra: Optional[List[str]] = None
 
+@dataclass
+class DaskConf:
+    joblib: JoblibConf = JoblibConf()
+    jobqueue: JobqueueConf = JobqueueConf()
+
 
 @dataclass
 class DaskLauncherConf(ObjectConf):
     cls: str = "hydra_plugins.hydra_dask_launcher.dask_launcher.DaskLauncher"
-    joblib: JoblibConf = JoblibConf()
-    dask: DaskConf = DaskConf()
+    params: DaskConf = DaskConf()
 
 
 ConfigStore.instance().store(

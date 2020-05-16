@@ -120,7 +120,7 @@ class DaskConf:
     job_mem: Optional[str] = None
 
     #List of other scheduler options. Each option will be prepended with the correct scheduler prefix.
-    job_extra: Optional[List[str]]
+    job_extra: Optional[List[str]] = None
 
 
 @dataclass

@@ -26,7 +26,7 @@ clusters = {
     "pbs": dask_jobqueue.PBSCluster,
     "sge": dask_jobqueue.SGECluster,
     "lsf": dask_jobqueue.LSFCluster,
-    "slurm": dask_jobqueue.SlURMCluster
+    "slurm": dask_jobqueue.SLURMCluster
 }
 
 
@@ -41,8 +41,8 @@ class DaskLauncher(Launcher):
         self.config_loader: Optional[ConfigLoader] = None
         self.task_function: Optional[TaskFunction] = None
 
-        self.joblib = kwargs
-        print(self.joblib)
+        self.params = kwargs
+        print(self.params)
 
     def setup(
         self,
@@ -71,10 +71,10 @@ class DaskLauncher(Launcher):
         sweep_dir = Path(str(self.config.hydra.sweep.dir))
         sweep_dir.mkdir(parents=True, exist_ok=True)
 
-        joblib_cfg = self.joblib
+        joblib_cfg = self.params.joblib
         joblib_cfg["backend"] = "dask"
 
-        dask_cfg = self.joblib.pop("jobqueue", None)
+        dask_cfg = self.params.jobqueue
 
         if dask_cfg is None:
             raise RuntimeError("'jobqueue' must be present in config file")
@@ -98,6 +98,8 @@ class DaskLauncher(Launcher):
             log.info("\t#{} : {}".format(idx, " ".join(filter_overrides(overrides))))
 
         singleton_state = Singleton.get_state()
+
+        return None
 
         runs = Parallel(**joblib_cfg)(
             delayed(execute_job)(

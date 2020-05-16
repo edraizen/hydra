@@ -1,12 +1,11 @@
 # @package: _group_
-params:
+joblib:
   n_jobs: 10
-  jobqueue:
-      slurm:
-        name: dask-worker
-        cores: 36
-        memory: '96 GB'
-        processes: 4
-        queue: standard
-        account: muragroup
-        walltime: '00:30:00'
+jobqueue:
+  scheduler: slurm
+  name: dask-worker
+  cores: 36
+  memory: '96 GB'
+  queue: standard
+  project: muragroup
+  walltime: '00:30:00'

@@ -41,7 +41,7 @@ class DaskLauncher(Launcher):
         self.config_loader: Optional[ConfigLoader] = None
         self.task_function: Optional[TaskFunction] = None
 
-        self.dask = kwargs
+        self.joblib = kwargs
 
     def setup(
         self,

@@ -44,12 +44,13 @@ class JoblibConf:
 @dataclass
 class DaskConf:
     #Scheduler type
-    scheduler: str = None
+    scheduler: str = ""
+
     #Destination queue for each worker job. Passed to #SBATCH -p option.
-    queue: str = None
+    queue: str = ""
 
     #Accounting string associated with each worker job. Passed to #SBATCH -A option.
-    project: str = None
+    project: str = ""
 
     #Total number of cores per job
     cores: int = 1
@@ -120,7 +121,7 @@ class DaskConf:
     job_mem: Optional[str] = None
 
     #List of other scheduler options. Each option will be prepended with the correct scheduler prefix.
-    job_extra: Optional[List[str]] = None
+    #job_extra: Optional[List[str]] = None
 
 
 @dataclass
